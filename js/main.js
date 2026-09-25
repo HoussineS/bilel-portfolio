@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGalleryLightbox();
   initSkillBars();
   initBackToTop();
+  initVideoFullscreen();
 });
 
 /* ============================================
@@ -227,5 +228,26 @@ function initBackToTop() {
 
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+/* ============================================
+   VIDEO FULLSCREEN
+   ============================================ */
+function initVideoFullscreen() {
+  const video = document.querySelector('.gallery-video video');
+  if (!video) return;
+
+  video.addEventListener('click', (e) => {
+    // Only go fullscreen if we aren't already
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) { /* Safari */
+        video.webkitRequestFullscreen();
+      } else if (video.msRequestFullscreen) { /* IE11 */
+        video.msRequestFullscreen();
+      }
+    }
   });
 }
